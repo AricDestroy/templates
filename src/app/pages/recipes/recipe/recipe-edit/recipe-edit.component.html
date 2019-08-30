@@ -1,0 +1,130 @@
+<div>
+    <form [formGroup]="recipeForm" (ngSubmit)="saveRecipe()">
+  <div>
+      <nb-card class="col-12">
+        <nb-card-body>
+          <div class="form-group row">
+            <div class="col-sm-1">
+              <label for="name" class="label col-form-label">Name</label>
+            </div>
+            <div class="col-sm-10">
+              <input formControlName="name" nbInput class="form-control" fullWidth type="text"/>
+            </div>
+            <div class="col-sm-1">
+                
+              <button [disabled]="recipeForm.invalid" nbButton size="tiny" class="btn btn-success" type="submit" (click)="saveRecipe()" routerLinkActive="active" [routerLink]="'./../'">
+                <nb-icon icon="edit-outline" pack="eva"></nb-icon>
+              </button>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    
+  </div>
+    
+
+
+  <div>
+        <nb-card class="col-12">
+          <nb-card-body>
+            <nb-tabset fullWidth>
+                <nb-tab tabTitle="Infos">
+                    
+                        <div class="form-group row">
+                          <label for="img" class="label col-sm-3 col-form-label">Image : </label>
+                          <div class="col-sm-9">
+                            <input  formControlName="img" nbInput fullWidth class="form-control" type="text" />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="comment" class="label col-sm-3 col-form-label">Comment(s) :</label>
+                          <div class="col-sm-9">
+                             
+                              <textarea formControlName="comment" fullWidth nbInput class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="duration" class="label col-sm-3 col-form-label">Duration :</label>
+                            <div class="col-sm-9">
+                                <input nbInput fullWidth formControlName="duration" type="number" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-3 label">People(s) :</label>
+                          <div class="col-sm-9">
+                              <nb-select formControlName="nbperson" placeholder="Nb people" >
+                                  <nb-option *ngFor="let number of persons" [value]='number'>{{number}}</nb-option>
+                                </nb-select>
+                          </div>
+                        </div>
+                      
+                    
+
+
+                </nb-tab>
+                <nb-tab tabTitle="Ingredients">
+                    <div formArrayName="ingredients">
+                        <div [formGroup]="ingredient" class="form-group row" *ngFor="let ingredient of recipeForm.get('ingredients').controls">
+                          
+                              <input nbInput class="form-control col-7"
+                                placeholder="Search..."
+                                formControlName="name"
+                                [appAutocomplete]="autocomplete"
+                                type="text"
+                              />
+                                  
+                              <app-autocomplete #autocomplete="appAutocomplete">
+                                <ng-template appAutocompleteContent>
+                                  <ng-container *ngIf="(ingredientsList | ingredientFilter: ingredient.get('name').value) as result">
+                                    <app-option *ngFor="let ingred of result" [value]="ingred.name">
+                                      {{ ingred.name }}
+                                    </app-option>
+                                    
+                                  </ng-container>
+                                </ng-template>
+                              </app-autocomplete>
+                          
+                          <input nbInput placeholder="quantity" formControlName="quantity" class="form-control col-2" type="number" />
+                          <input nbInput class="form-control col-3"
+                                placeholder="unit"
+                                formControlName="unit"
+                                [appAutocomplete]="autocomplete2"
+                                type="text"
+                              />
+                                  
+                              <app-autocomplete #autocomplete2="appAutocomplete">
+                                <ng-template appAutocompleteContent>
+                                  <ng-container *ngIf="(unitsList | unitFilter: ingredient.get('unit').value) as result">
+                                    <app-option *ngFor="let unit of result" [value]="unit.name">
+                                      {{ unit.name }}
+                                    </app-option>
+                                    
+                                  </ng-container>
+                                </ng-template>
+                              </app-autocomplete>
+                        </div>
+                      </div>
+                    <hr>
+                    <button class="btn btn-success" type="button" (click)="addIngredient()"> Ajouter ingredient </button>      
+            
+                </nb-tab>
+                <nb-tab tabTitle="Steps">
+                    <div formArrayName="steps">
+                        <div [formGroup]="step" class="form-group row" *ngFor="let step of recipeForm.get('steps').controls">
+                          <input  nbInput formControlName="id" class="form-control col-1"/>  
+                          <textarea placeholder="name" fullWidth nbInput formControlName="step" class="form-control col-11"></textarea>
+                        </div>
+                      </div>
+                    <hr>
+                      <button class="btn btn-success" type="button" (click)="addStep()"> Ajouter étape </button>
+                </nb-tab>
+              </nb-tabset>
+            </nb-card-body>
+        </nb-card>
+      </div>
+    </form>
+  </div>
+  
+  
+  
+  

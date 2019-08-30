@@ -1,0 +1,66 @@
+<div class="row" *ngIf="recipe">
+  <div class="col-4">
+    
+      <nb-card size="small">
+        <div class="picture" [style.background-image]="getImageUrl()"></div>
+          <div class="details">
+              <div class="h6">{{recipe.name}} <button *ngIf="recipe.comment" nbButton ghost status="warning" [nbPopover]="recipe.comment" nbPopoverTrigger="hint" nbPopoverPlacement="bottom" >
+                  <nb-icon icon="bulb-outline" pack="eva"></nb-icon>
+                </button></div>
+              
+              </div>
+        <nb-card-footer>
+            <label *ngIf="recipe.duration" class="label">{{recipe.duration}} min</label>
+            
+            <button nbButton ghost routerLinkActive="active" [routerLink]="'./edit'">
+                <nb-icon icon="edit-outline" pack="eva"></nb-icon>
+              </button>
+          
+        </nb-card-footer>
+      </nb-card>
+    
+      <nb-card>
+          <nb-card-footer>
+          <div class="col-8">
+              <nb-select placeholder="Nb people" [formControl]="nbPersonFormControl" >
+                  <nb-option *ngFor="let number of persons" [value]='number'>{{number}}</nb-option>
+                </nb-select>
+                
+          </div>
+          <button nbButton (click)="addPanier(recipe.ingredients)" routerLinkActive="active" [routerLink]="'/pages/cart'">
+            <nb-icon icon="plus-square-outline" pack="eva"></nb-icon>
+          </button>
+          
+          
+        </nb-card-footer>
+      </nb-card>
+    
+  </div>
+  <div class="col-8">
+      <nb-card size="medium">
+        <nb-card-body>
+          <nb-tabset fullWidth>
+              <nb-tab tabTitle="Ingredients">
+                <nb-list>
+                  <nb-list-item *ngFor="let ingred of recipe.ingredients">
+                      {{ ingred.name }} <span class="badge badge-pill badge-primary float-right">{{ ingred.quantity * getDivisor() + " " + ingred.unit}}</span>
+                  </nb-list-item>
+                </nb-list>
+              </nb-tab>
+              <nb-tab tabTitle="Steps">
+                <nb-stepper class="col-7" orientation="horizontal">
+                  <nb-step *ngFor="let step of recipe.steps">
+                    <p class="lorem">
+                        {{ step.step }}
+                    </p>
+                  </nb-step>
+                </nb-stepper>
+              </nb-tab>
+            </nb-tabset>
+          </nb-card-body>
+      </nb-card>
+    </div>
+</div>
+
+
+

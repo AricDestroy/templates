@@ -1,0 +1,60 @@
+<div *ngIf="!ingredients"class="row">
+<label>Aucun élément dans le panier</label>
+</div>
+
+<div *ngIf="ingredients" class="col-xl-12">
+      
+        
+        <nb-card fullWidth>
+            <nb-card-body>
+                <button nbButton ghost (click)="savePanier()" routerLinkActive="active" [routerLink]="'/pages/cart'">
+                  <nb-icon icon="save-outline" pack="eva"></nb-icon>
+                </button>
+                <button nbButton ghost (click)="cleanPanier()" routerLinkActive="active" [routerLink]="'/pages/cart'">
+                  <nb-icon icon="trash-2-outline" pack="eva"></nb-icon>
+                </button>
+                <nb-list >
+                    <nb-list-item *ngFor="let ingred of ingredients">
+                      <nb-checkbox [value]="ingred.active" #checkbox>
+                        <div *ngIf="!checkbox.value">
+                          <s>
+                            {{ ingred.name }} : {{ ingred.quantity + " " + ingred.unit}}
+                          </s>
+                        </div>
+                        <div *ngIf="checkbox.value">
+                            {{ ingred.name }} : {{ ingred.quantity + " " + ingred.unit}}
+                        </div>
+                      </nb-checkbox>
+                      
+                    </nb-list-item>
+                  </nb-list>
+            </nb-card-body>
+          </nb-card>
+        
+        
+</div>
+
+<div *ngIf="false" class="col-xl-12">
+  <form [formGroup]="cartForm">
+      <div formArrayName="ingredients">
+          <div [formGroup]="ingredient" class="form-group row" *ngFor="let ingredient of cartForm.get('ingredients').controls">
+              <input nbInput class="form-control col-7"
+              placeholder="Search..."
+              formControlName="name"
+              
+              type="text"
+            />
+            
+        
+        <input nbInput placeholder="quantity" formControlName="quantity" class="form-control col-2" type="number" />
+        <input nbInput class="form-control col-3"
+              placeholder="unit"
+              formControlName="unit"
+              
+              type="text"
+            />
+            
+          </div>
+      </div>
+  </form>
+</div>
