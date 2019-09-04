@@ -28,7 +28,13 @@ export class RecipeEditComponent implements OnInit {
 
   private maxStepId = 0;
 
- 
+  get formIngredients(){
+    return this.recipeForm.get('ingredients'); 
+  }
+
+  get formSteps(){
+    return this.recipeForm.get('steps'); 
+  }
 
   public persons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 

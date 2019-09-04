@@ -64,7 +64,7 @@
                 </nb-tab>
                 <nb-tab tabTitle="Ingredients">
                     <div formArrayName="ingredients">
-                        <div [formGroup]="ingredient" class="form-group row" *ngFor="let ingredient of recipeForm.get('ingredients').controls">
+                        <div [formGroup]="ingredient" class="form-group row" *ngFor="let ingredient of formIngredients.controls">
                           
                               <input nbInput class="form-control col-7"
                                 placeholder="Search..."
@@ -110,7 +110,7 @@
                 </nb-tab>
                 <nb-tab tabTitle="Steps">
                     <div formArrayName="steps">
-                        <div [formGroup]="step" class="form-group row" *ngFor="let step of recipeForm.get('steps').controls">
+                        <div [formGroup]="step" class="form-group row" *ngFor="let step of formSteps.controls">
                           <input  nbInput formControlName="id" class="form-control col-1"/>  
                           <textarea placeholder="name" fullWidth nbInput formControlName="step" class="form-control col-11"></textarea>
                         </div>
