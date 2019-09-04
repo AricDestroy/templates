@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git+https://github.com/akveo/ngx-admin.git"
   },
-  "engines  ": {
+  "engines": {
     "node": "10.14.2",
     "npm": "6.4.1"
   },
