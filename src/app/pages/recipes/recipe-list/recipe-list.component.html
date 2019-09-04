@@ -5,12 +5,17 @@
     <nb-card>
       <nb-card-header>
           <div class="row">
-              <input type="text" class="col-11" nbInput fullWidth status="info"  placeholder="Search recipe" [(ngModel)]="search">
-              <button class="btn btn-success col-1" routerLinkActive="active" [routerLink]="['../new']"> 
-                  <nb-icon icon="plus-square-outline" pack="eva"></nb-icon>
-              </button>
+              <div class="col-1">
+              
+                  <button nbButton ghost routerLinkActive="active" [routerLink]="['../new']"> 
+                      <nb-icon icon="plus-square-outline" pack="eva"></nb-icon>
+                  </button>
+                </div>
+            <div class="col-11">
+              <input type="text" nbInput fullWidth status="info"  placeholder="Search recipe" [(ngModel)]="search">
+            </div>
             
-          </div>  
+          </div>
       </nb-card-header>
       <nb-card-body>
         
